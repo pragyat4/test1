@@ -1,39 +1,137 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Form Alert Example</title>
+<meta charset="UTF-8">
+<title>Form to Table</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f4f6f9;
+        padding: 30px;
+    }
+
+    .container {
+        max-width: 600px;
+        margin: auto;
+        background: #fff;
+        padding: 20px 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    input {
+        width: 100%;
+        padding: 8px;
+        margin: 5px 0 15px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+
+    button {
+        width: 100%;
+        padding: 10px;
+        background: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background: #0056b3;
+    }
+
+    table {
+        width: 100%;
+        margin-top: 25px;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 10px;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+    }
+
+    th {
+        background: #007bff;
+        color: white;
+    }
+
+    tr:hover {
+        background: #f1f1f1;
+    }
+</style>
 </head>
+
 <body>
 
-<h2>Sample Form</h2>
+<div class="container">
+    <h2>User Form</h2>
 
-<form id="myForm">
-    <label>Name:</label><br>
-    <input type="text" id="name" name="name"><br><br>
+    <form id="myForm">
+        <label>Name:</label>
+        <input type="text" id="name" required>
 
-    <label>Email:</label><br>
-    <input type="email" id="email" name="email"><br><br>
+        <label>Email:</label>
+        <input type="email" id="email" required>
 
-    <label>Phone:</label><br>
-    <input type="text" id="phone" name="phone"><br><br>
+        <label>Phone:</label>
+        <input type="text" id="phone" required>
 
-    <button type="button" onclick="showFormData()">Submit</button>
-</form>
+        <button type="button" onclick="addToTable()">Add to Table</button>
+    </form>
+
+    <table id="dataTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Data will be added here -->
+        </tbody>
+    </table>
+</div>
 
 <script>
-function showFormData() {
-    const form = document.getElementById("myForm");
+function addToTable() {
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const phone = document.getElementById("phone").value.trim();
 
-    const name = form.name.value;
-    const email = form.email.value;
-    const phone = form.phone.value;
+    if (!name || !email || !phone) {
+        alert("Please fill all fields!");
+        return;
+    }
 
-    const message = 
-        "Name: " + name + "\n" +
-        "Email: " + email + "\n" +
-        "Phone: " + phone;
+    const table = document.getElementById("dataTable").getElementsByTagName('tbody')[0];
 
-    alert(message);
+    const newRow = table.insertRow();
+
+    const cell1 = newRow.insertCell(0);
+    const cell2 = newRow.insertCell(1);
+    const cell3 = newRow.insertCell(2);
+
+    cell1.textContent = name;
+    cell2.textContent = email;
+    cell3.textContent = phone;
+
+    // Clear form
+    document.getElementById("myForm").reset();
 }
 </script>
 
